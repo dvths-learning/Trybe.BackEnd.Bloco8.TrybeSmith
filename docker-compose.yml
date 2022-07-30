@@ -11,6 +11,8 @@ services:
     tty: true
     # Mesmo que `docker run -i`
     stdin_open: true
+    # Lê o arquivo .env
+    env_file: ./.env
     # Substitui o comando padrão da imagem do node
     command: bash
     # Restarta a imagem caso algo a faça parar
@@ -33,8 +35,8 @@ services:
       - 3000:3000
     # Configura as variáveis de ambiente dentro do container
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_HOST: db
 
   # Serviço que irá rodar o banco de dados
@@ -49,7 +51,7 @@ services:
       - 3306:3306
       - 33060:33060
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
 
 # Lista de redes que os containeres irão utilizar
 networks:
