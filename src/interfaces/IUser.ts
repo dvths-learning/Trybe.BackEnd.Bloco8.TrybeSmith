@@ -25,4 +25,4 @@ Meu intuito aqui era tornar flexível o uso de propriedades da interface usando
 Partial<> para implementar parcialmente a interface no caso de uma atualização de
 dados específicos.
 */
-export interface IUserUpdateRequest extends Partial<IUserCreateRequest> {}
+// export interface IUserUpdateRequest extends Partial<IUserCreateRequest> {}
