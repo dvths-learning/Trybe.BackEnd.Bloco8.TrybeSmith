@@ -17,7 +17,7 @@ class Connection {
   }
 
   public execute = async (sql: string, value: any) => {
-    const result = Connection.connection.execute(sql, value);
+    const result = await Connection.connection.execute(sql, value);
     return result;
   };
 
