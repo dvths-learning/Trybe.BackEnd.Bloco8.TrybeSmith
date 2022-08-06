@@ -16,8 +16,8 @@ class Connection {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  public async execute(sql: string, value: unknown) {
+  // Tornar stetic para evitar erro de lint pedindo this
+  public static async execute(sql: string, value: unknown) {
     const result = await Connection.connection.execute(sql, value);
     return result;
   }
