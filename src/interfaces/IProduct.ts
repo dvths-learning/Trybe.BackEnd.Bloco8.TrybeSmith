@@ -8,4 +8,7 @@ export interface IProductRequest {
   orderId: number | null
 }
 
-export interface IProductUpdade extends Partial<IProductRequest> {}
+export interface IProductUpdade {
+  name?: string
+  amount?: string
+}
