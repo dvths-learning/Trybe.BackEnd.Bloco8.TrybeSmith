@@ -2,6 +2,11 @@ export interface IUser extends IUserCreateRequest {
   id: number
 }
 
+export interface ILogin extends IUserCreateRequest {
+  username: string
+  password: string
+}
+
 export interface IUserCreateRequest {
   username: string
   classe: string
@@ -16,6 +21,8 @@ export interface IUserUpdateRequest {
   level?: number
   password?: string
 }
+
+
 /*
 eslint: An interface declaring no members is equivalent to its supertype.
 A razão pela qual essa regra existe é que o typescript usa tipagem estrutural,
