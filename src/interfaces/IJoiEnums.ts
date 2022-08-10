@@ -1,6 +1,6 @@
-import { JoiErrors } from '../enums/JoiErrors';
+import JoiErrors from '../enums/JoiErrors';
 // https://stackoverflow.com/questions/55377365/what-does-keyof-typeof-mean-in-typescript
-export interface IJoiError {
+export default interface IJoiError {
   type: keyof typeof JoiErrors
   message: string
 }
