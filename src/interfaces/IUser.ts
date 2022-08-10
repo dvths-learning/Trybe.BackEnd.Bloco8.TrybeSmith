@@ -1,17 +1,17 @@
-export interface IUser extends IUserCreateRequest {
+export interface IUserDTO extends IUserCreateRequest {
   id: number
 }
 
-export interface ILogin extends IUserCreateRequest {
+export interface IUserCredentials extends IUserCreateRequest {
   username: string
-  password: string
+  password: string 
 }
 
 export interface IUserCreateRequest {
   username: string
   classe: string
   level: number
-  password: string
+  password: string 
 
 }
 
@@ -21,7 +21,6 @@ export interface IUserUpdateRequest {
   level?: number
   password?: string
 }
-
 
 /*
 eslint: An interface declaring no members is equivalent to its supertype.
