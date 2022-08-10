@@ -27,7 +27,7 @@ class Connection {
   //   return result;
   // }
 }
-// Referencia o construtor, ou seja, automáticamente cria uma instância deconcxão
+// Referencia o construtor, ou seja, automáticamente cria uma instância de concxão
 // Isso também a delimita, obedecendo o princípio Open-Closed.
 // Ela está  aberta para extensão, no entanto, fechada para modificações
 export default new Connection();
