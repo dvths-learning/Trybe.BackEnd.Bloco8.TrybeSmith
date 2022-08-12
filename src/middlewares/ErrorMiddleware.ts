@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import HttpError from '../shared/HttpErrors';
+import HttpError from '../utils/HttpErrors';
 
 export default class ErrorMiddleware {
   public handleError = (
