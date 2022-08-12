@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../models/entities/User';
 import IPersistenceService from '../useCases/User/IPersistenceService';
-import UserUseCase from '../useCases/User/UserUseCaseCreate';
+import JwtService from '../useCases/User/JwtService';
 
 /*
  TODO Add processo de recebimento do token
@@ -21,14 +21,20 @@ export default class UserController {
   */
   private persistenceService: IPersistenceService<User>;
 
+  private jwt: JwtService;
+
   constructor(persitenceService: IPersistenceService<User>) {
     this.persistenceService = persitenceService;
+    this.jwt = new JwtService();
   }
 
   public createUser = async (req: Request, res: Response): Promise<void> => {
     try {
-      await this.persistenceService.create(req.body as User);
-      res.status(200).json({ status: 'sem token' });
+      const user = await this.persistenceService.create(req.body as User);
+      const { username, password } = user;
+      const token = this.jwt.generateToken({username, password});
+
+      res.status(201).json({ token });
     } catch (error) {
       res.status(400).json({ message: error });
     }
