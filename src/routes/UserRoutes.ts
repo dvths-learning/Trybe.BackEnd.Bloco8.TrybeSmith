@@ -1,19 +1,18 @@
 import { Router } from 'express';
+import connection from '../models/connection';
 import UserController from '../controllers/UserController';
-import UserRepository from '../models/repository/UserRepository';
-import UserUseCase from '../useCases/User/UserUseCaseCreate';
-import UserUseCaseValidate from '../useCases/User/UserUseCaseValidate';
+import UserMiddleware from '../middlewares/UserMiddleware';
+import UserModel from '../models/entities/User';
+import UserUseCaseCreate from '../useCases/User/UserUseCaseCreate';
 
-const userRoutes = Router();
+const routes = Router();
 
-const userValidate = new UserUseCaseValidate();
-
-const userRepository = new UserRepository();
-
-const userService = new UserUseCase(userRepository);
-
+const userModel = new UserModel(connection);
+const userService = new UserUseCaseCreate(userModel);
 const userController = new UserController(userService);
 
-userRoutes.post('/', userValidate.validate, userController.createUser);
+const userMiddleware = new UserMiddleware();
 
-export default userRoutes;
+routes.post('/', userMiddleware.validate, userController.create);
+
+export default routes;
