@@ -1,14 +1,6 @@
-export interface IProduct extends IProductRequest {
-  id: number
-}
-
-export interface IProductRequest {
-  name: string
-  amount: string
+export default interface IProduct {
+  id?: number,
+  name: string,
+  amount: string,
   orderId: number | null
-}
-
-export interface IProductUpdade {
-  name?: string
-  amount?: string
 }
