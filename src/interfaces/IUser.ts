@@ -1,26 +1,34 @@
-export interface IUserDTO extends IUserCreateRequest {
-  id: number
+export default interface IUser {
+  id?: number,
+  username: string,
+  classe: string,
+  level: number,
+  password: string
 }
 
-export interface IUserCreateRequest {
-  username: string
-  classe: string
-  level: number
-  password: string 
+// export interface IUserDTO extends IUserCreateRequest {
+//   id: number
+// }
 
-}
+// export interface IUserCreateRequest {
+//   username: string
+//   classe: string
+//   level: number
+//   password: string 
 
-export interface IUserCredentials extends IUserUpdateRequest{
-  username: string
-  password: string 
-}
+// }
 
-export interface IUserUpdateRequest {
-  username?: string
-  class?: string
-  level?: number
-  password?: string
-}
+// export interface IUserCredentials extends IUserUpdateRequest{
+//   username: string
+//   password: string 
+// }
+
+// export interface IUserUpdateRequest {
+//   username?: string
+//   class?: string
+//   level?: number
+//   password?: string
+// }
 
 /*
 eslint: An interface declaring no members is equivalent to its supertype.
