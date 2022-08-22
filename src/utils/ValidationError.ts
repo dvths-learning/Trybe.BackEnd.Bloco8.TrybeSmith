@@ -1,5 +1,5 @@
-import JoiErrors from '../enums/JoiErrors';
-import IJoiError from '../interfaces/IJoiEnums';
+import JoiErrors from '../enums/JoiEnum';
+import IJoiError from '../interfaces/IJoiError';
 
 export default class ValidationError extends Error {
   status: number;
