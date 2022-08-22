@@ -1,24 +1,25 @@
-import { IUserCreateRequest } from '../../interfaces/IUser';
+import IUser from '../../interfaces/IUser';
 import User from '../../models/entities/User';
-import UserRepository from '../../models/repository/UserRepository';
-import IPersistenceService from './IPersistenceService';
 
-export default class UserUseCase implements IPersistenceService<IUserCreateRequest> {
-  private userRepository: UserRepository;
+export default class UserService {
+  private model: User;
 
-  // injeção da dependência
-  // quem for instanciar o serviço terá que informar o contexto do repositorio
-  constructor(userRepository: UserRepository) {
-    this.userRepository = userRepository;
+  constructor(model: User) {
+    this.model = model;
   }
 
-  public create = async (user: User): Promise<void> => {
-    const passwordEncrypted = User.encryptPWD(user.password);
-    const result = await this.userRepository.create({
-      ...user,
-      password: passwordEncrypted,
-    });
+  // public create = async (newUser: IUser): Promise<IUser> => {
+  //   const passwordEncrypted = User.encryptPWD(newUser.password);
 
-    return result;
+  //   const result = await this.model.create({
+  //     ...newUser,
+  //     password: passwordEncrypted,
+  //   });
+  //   return result;
+  // };
+  public create = async (newUser: IUser): Promise<IUser> => {
+    const user = await this.model.create(newUser);
+
+    return user;
   };
 }
