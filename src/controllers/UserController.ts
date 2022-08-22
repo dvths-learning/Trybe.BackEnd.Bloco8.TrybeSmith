@@ -1,42 +1,23 @@
 import { Request, Response } from 'express';
-import User from '../models/entities/User';
-import IPersistenceService from '../useCases/User/IPersistenceService';
-import JwtService from '../useCases/User/JwtService';
-
-/*
- TODO Add processo de recebimento do token
-*/
+import UserUseCaseCreate from '../useCases/User/UserUseCaseCreate';
+import JwtUtils from '../useCases/User/JwtService';
 
 export default class UserController {
-  /*
-    Ao invés de puxar diretamente a camada de serviço,
-    realizamos a inversão de depencência para que aconteça
-    o princípio de Liskov.
+  private service: UserUseCaseCreate;
 
-    Lembrando que DIP significa que dependeremos de abstrações 
-    e não mais de implementações.
+  private jwtUtils: JwtUtils;
 
-    No contexto do código, não queremos depender de um serviço,
-    mas da interface de um serviço.
-  */
-  private persistenceService: IPersistenceService<User>;
-
-  private jwt: JwtService;
-
-  constructor(persitenceService: IPersistenceService<User>) {
-    this.persistenceService = persitenceService;
-    this.jwt = new JwtService();
+  constructor(service: UserUseCaseCreate) {
+    this.service = service;
+    this.jwtUtils = new JwtUtils();
   }
 
-  public createUser = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const user = await this.persistenceService.create(req.body as User);
-      const { username, password } = user;
-      const token = this.jwt.generateToken({username, password});
+  public create = async (req: Request, res: Response): Promise<void> => {
+    const user = await this.service.create(req.body);
+    const { id, username } = user;
 
-      res.status(201).json({ token });
-    } catch (error) {
-      res.status(400).json({ message: error });
-    }
+    const token = this.jwtUtils.generateToken({ id, username });
+
+    res.status(201).json({ token });
   };
 }
