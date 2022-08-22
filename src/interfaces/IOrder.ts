@@ -1,8 +1,5 @@
-export interface IOrder extends IOrderCreateRequest {
-  id: number;
-}
-
-export interface IOrderCreateRequest {
-  userId: number;
-  productsIds: number[];
+export default interface IOrder {
+  id?: number,
+  userId: number,
+  productsIds: number[]
 }
