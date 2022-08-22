@@ -1,18 +1,30 @@
-import { IProduct } from '../../interfaces/IProduct';
+import { Pool, ResultSetHeader } from 'mysql2/promise';
+import IProduct from '../../interfaces/IProduct';
 
-export default class Product implements IProduct {
-  public readonly id: number;
+export default class ProductModel {
+  private connection: Pool;
 
-  public name: string;
-
-  public amount: string;
-
-  public orderId: number | null;
-
-  constructor() {
-    this.id = 0;
-    this.name = '';
-    this.amount = '';
-    this.orderId = null;
+  constructor(connection: Pool) {
+    this.connection = connection;
   }
+
+  public getAll = async (): Promise<IProduct[]> => {
+    const [products] = await this.connection.execute(
+      'SELECT * FROM Trybesmith.Products',
+    );
+
+    return products as IProduct[];
+  };
+
+  public create = async (newProduct: IProduct): Promise<IProduct> => {
+    const { name, amount } = newProduct;
+    const [result] = await this.connection.execute<ResultSetHeader>(
+      'INSERT INTO Trybesmith.Products (name, amount) VALUES (?, ?)',
+      [name, amount],
+    );
+
+    const { insertId } = result;
+
+    return { id: insertId, ...newProduct };
+  };
 }
