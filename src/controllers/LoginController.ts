@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import UserUseCaseAuth from '../useCases/User/UserUseCaseAuth';
 import JwtUtils from '../useCases/User/JwtService';
-import User from '../models/entities/User';
+// import User from '../models/entities/User';
 
 export default class LoginController {
   private service: UserUseCaseAuth;
