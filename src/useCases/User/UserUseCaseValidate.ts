@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi, { ObjectSchema } from 'joi';
-import IJoiError from '../../interfaces/IJoiEnums';
-import ValidationError from '../../shared/Validations';
+import IJoiError from '../../interfaces/IJoiError';
+import ValidationError from '../../utils/ValidationError';
 
 export default class UserUseCaseValidate {
   private static schema: ObjectSchema;
